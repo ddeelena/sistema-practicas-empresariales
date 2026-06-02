@@ -1,6 +1,6 @@
 package co.edu.sistema_practicas_empresariales.modules.cierre.service;
 
-import co.edu.sistema_practicas_empresariales.modules.cierre.service.chain.*;
+import co.edu.sistema_practicas_empresariales.modules.cierre.service.chain.ValidadorNotaDocente;
 import co.edu.sistema_practicas_empresariales.modules.practica.model.Practica;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,17 +8,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class ChecklistCierreServiceTest {
 
-    @Mock private ValidadorNotaDocente validadorNotaDocente;
-    @Mock private ValidadorNotaTutor validadorNotaTutor;
-    @Mock private ValidadorNotaFinal validadorNotaFinal;
-    @Mock private ValidadorEncuestaTutor validadorEncuestaTutor;
-    @Mock private ValidadorEncuestaEstudiante validadorEncuestaEstudiante;
-    @Mock private ValidadorDocumentos validadorDocumentos;
+    @Mock
+    private ValidadorNotaDocente validadorNotaDocente;
 
     @InjectMocks
     private ChecklistCierreService checklistCierreService;
@@ -29,14 +25,6 @@ class ChecklistCierreServiceTest {
         practica.setId(101L);
 
         checklistCierreService.validarChecklistCierre(practica);
-
-        // Verify next elements in the chain are correctly set
-        verify(validadorNotaDocente).setSiguiente(validadorNotaTutor);
-        verify(validadorNotaTutor).setSiguiente(validadorNotaFinal);
-        verify(validadorNotaFinal).setSiguiente(validadorEncuestaTutor);
-        verify(validadorEncuestaTutor).setSiguiente(validadorEncuestaEstudiante);
-        verify(validadorEncuestaEstudiante).setSiguiente(validadorDocumentos);
-        verify(validadorDocumentos).setSiguiente(null);
 
         // Verify the validation starts with the first link
         verify(validadorNotaDocente).validar(practica);

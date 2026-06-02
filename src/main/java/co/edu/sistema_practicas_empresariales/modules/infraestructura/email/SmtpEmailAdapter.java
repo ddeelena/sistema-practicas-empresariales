@@ -13,8 +13,11 @@ public class SmtpEmailAdapter implements EmailService {
 
     private static final Logger logger = LoggerFactory.getLogger(SmtpEmailAdapter.class);
 
-    @Autowired(required = false)
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
+
+    public SmtpEmailAdapter(@Autowired(required = false) JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
     @Override
     public void enviarCorreo(String destinatario, String asunto, String cuerpoHtml) {

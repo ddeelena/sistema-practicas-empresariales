@@ -4,7 +4,6 @@ import co.edu.sistema_practicas_empresariales.modules.practica.exception.Busines
 import co.edu.sistema_practicas_empresariales.modules.practica.model.Practica;
 import co.edu.sistema_practicas_empresariales.modules.practica.model.PracticaDocumento;
 import co.edu.sistema_practicas_empresariales.modules.practica.repository.PracticaDocumentoRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.List;
@@ -12,10 +11,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
-@RequiredArgsConstructor
 public class ValidadorDocumentos extends BaseValidadorCierre {
 
     private final PracticaDocumentoRepository practicaDocumentoRepository;
+
+    public ValidadorDocumentos(PracticaDocumentoRepository practicaDocumentoRepository) {
+        super(null);
+        this.practicaDocumentoRepository = practicaDocumentoRepository;
+    }
 
     private static final List<String> CATEGORIAS_OBLIGATORIAS = Arrays.asList(
             "ARL", "PLANEADOR", "INFORME_EJECUTIVO", "PRESENTACION", "DOCUMENTO_FINAL"

@@ -4,7 +4,10 @@ import co.edu.sistema_practicas_empresariales.modules.practica.model.Practica;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
@@ -12,7 +15,10 @@ import java.time.LocalDateTime;
 @Table(name = "practica_encuestas", uniqueConstraints = {
     @UniqueConstraint(name = "uq_practica_actor", columnNames = {"practica_id", "tipo_actor"})
 })
-@Data
+@Getter
+@Setter
+@ToString(exclude = "practica")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -20,6 +26,7 @@ public class Encuesta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

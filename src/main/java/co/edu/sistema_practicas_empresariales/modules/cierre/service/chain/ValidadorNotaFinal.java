@@ -4,14 +4,17 @@ import co.edu.sistema_practicas_empresariales.modules.evaluacion.model.Evaluacio
 import co.edu.sistema_practicas_empresariales.modules.evaluacion.repository.EvaluacionRepository;
 import co.edu.sistema_practicas_empresariales.modules.practica.exception.BusinessException;
 import co.edu.sistema_practicas_empresariales.modules.practica.model.Practica;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class ValidadorNotaFinal extends BaseValidadorCierre {
 
     private final EvaluacionRepository evaluacionRepository;
+
+    public ValidadorNotaFinal(EvaluacionRepository evaluacionRepository, ValidadorEncuestaTutor validadorEncuestaTutor) {
+        super(validadorEncuestaTutor);
+        this.evaluacionRepository = evaluacionRepository;
+    }
 
     @Override
     public void validar(Practica practica) {
