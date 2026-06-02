@@ -85,7 +85,7 @@ class EvaluacionServiceImplTest {
     }
 
     @Test
-    void registrarNotaDocente_ConExito() {
+    void registrarNotaDocenteConExito() {
         BigDecimal nota = BigDecimal.valueOf(4.5);
         Evaluacion evalEsperada = Evaluacion.builder()
                 .id(1L)
@@ -107,7 +107,7 @@ class EvaluacionServiceImplTest {
     }
 
     @Test
-    void registrarNotaDocente_FueraDeRango_LanzaExcepcion() {
+    void registrarNotaDocenteFueraDeRangoLanzaExcepcion() {
         BigDecimal notaInvalida = BigDecimal.valueOf(5.1);
         when(practicaRepository.findById(20L)).thenReturn(Optional.of(practica));
 
@@ -117,7 +117,7 @@ class EvaluacionServiceImplTest {
     }
 
     @Test
-    void registrarNotaDocente_UsuarioNoAsesor_LanzaExcepcion() {
+    void registrarNotaDocenteUsuarioNoAsesorLanzaExcepcion() {
         BigDecimal nota = BigDecimal.valueOf(4.0);
         when(practicaRepository.findById(20L)).thenReturn(Optional.of(practica));
 
@@ -127,7 +127,7 @@ class EvaluacionServiceImplTest {
     }
 
     @Test
-    void registrarNotaTutor_ConExito() {
+    void registrarNotaTutorConExito() {
         BigDecimal nota = BigDecimal.valueOf(3.8);
         Evaluacion evalEsperada = Evaluacion.builder()
                 .id(1L)
@@ -148,7 +148,7 @@ class EvaluacionServiceImplTest {
     }
 
     @Test
-    void registrarNotaFinal_SinNotaDocentePrevia_LanzaExcepcion() {
+    void registrarNotaFinalSinNotaDocentePreviaLanzaExcepcion() {
         BigDecimal nota = BigDecimal.valueOf(4.0);
         when(practicaRepository.findById(20L)).thenReturn(Optional.of(practica));
         when(evaluacionRepository.findByPracticaIdAndActivoTrue(20L)).thenReturn(Optional.empty()); // No hay evaluación aún
@@ -159,7 +159,7 @@ class EvaluacionServiceImplTest {
     }
 
     @Test
-    void registrarNotaFinal_ConNotaDocentePrevia_ConExito() {
+    void registrarNotaFinalConNotaDocentePreviaConExito() {
         BigDecimal notaDocente = BigDecimal.valueOf(4.2);
         BigDecimal notaFinal = BigDecimal.valueOf(4.0);
 

@@ -38,6 +38,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class EstudianteFacadeImpl implements EstudianteFacade {
 
+    private static final String ESTUDIANTE_NO_ENCONTRADO_MSG = "Estudiante no encontrado con ID: ";
+
     private final EstudianteRepository estudianteRepository;
     private final ProgramaRequisitoRepository programaRequisitoRepository;
     private final PracticaRepository practicaRepository;
@@ -81,7 +83,7 @@ public class EstudianteFacadeImpl implements EstudianteFacade {
     @Transactional(readOnly = true)
     public EstudianteResponse obtenerPorId(Long id) {
         Estudiante estudiante = estudianteRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado con ID: " + id));
+                .orElseThrow(() -> new IllegalArgumentException(ESTUDIANTE_NO_ENCONTRADO_MSG + id));
         return mapToResponse(estudiante);
     }
 
@@ -121,7 +123,7 @@ public class EstudianteFacadeImpl implements EstudianteFacade {
     @Transactional
     public EstudianteResponse actualizarEstudiante(Long id, EstudianteRequest request) {
         Estudiante estudiante = estudianteRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado con ID: " + id));
+                .orElseThrow(() -> new IllegalArgumentException(ESTUDIANTE_NO_ENCONTRADO_MSG + id));
 
         if (request.getTelefono() != null) {
             estudiante.setTelefono(request.getTelefono());
@@ -153,7 +155,7 @@ public class EstudianteFacadeImpl implements EstudianteFacade {
     @Transactional
     public EstudianteResponse evaluarAptitud(Long estudianteId, int numeroPractica) {
         Estudiante estudiante = estudianteRepository.findById(estudianteId)
-                .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado con ID: " + estudianteId));
+                .orElseThrow(() -> new IllegalArgumentException(ESTUDIANTE_NO_ENCONTRADO_MSG + estudianteId));
 
         ProgramaRequisito requisito = programaRequisitoRepository
                 .findByProgramaIdAndNumeroPractica(estudiante.getPrograma().getId(), numeroPractica)
@@ -190,7 +192,7 @@ public class EstudianteFacadeImpl implements EstudianteFacade {
     @Transactional(readOnly = true)
     public List<PracticaResponse> obtenerHistorialPracticas(Long estudianteId) {
         estudianteRepository.findById(estudianteId)
-                .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado con ID: " + estudianteId));
+                .orElseThrow(() -> new IllegalArgumentException(ESTUDIANTE_NO_ENCONTRADO_MSG + estudianteId));
 
         return practicaRepository.findByEstudianteIdOrderByNumeroPracticaAsc(estudianteId).stream()
                 .map(this::mapToPracticaResponse)

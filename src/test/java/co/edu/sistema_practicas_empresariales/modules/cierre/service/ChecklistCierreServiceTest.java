@@ -20,7 +20,7 @@ class ChecklistCierreServiceTest {
     private ChecklistCierreService checklistCierreService;
 
     @Test
-    void validarChecklistCierre_ExecutesSequentialChain() {
+    void validarChecklistCierreExecutesSequentialChain() {
         Practica practica = new Practica();
         practica.setId(101L);
 
