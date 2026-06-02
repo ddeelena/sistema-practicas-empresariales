@@ -1,6 +1,7 @@
 package co.edu.sistema_practicas_empresariales.modules.practica.dto;
 
 import co.edu.sistema_practicas_empresariales.modules.practica.state.EstadoPractica;
+import co.edu.sistema_practicas_empresariales.modules.practica.state.EstadoPracticaTipo;
 import lombok.Builder;
 import lombok.Data;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @Builder
 public class PracticaDetalleDto {
     private Long           id;
-    private EstadoPractica estado;
+    private EstadoPracticaTipo estado;
 
     // Catálogo
     private Long   catalogoPracticaId;
@@ -59,4 +60,8 @@ public class PracticaDetalleDto {
     // Cortes y checklist
     private List<ChecklistDto> checklist;
     private Boolean   tienePazYSalvo;
+
+    private String materiaNucleoCodigo;
+    private int duracionSemanas;
+    private String resultado;
 }

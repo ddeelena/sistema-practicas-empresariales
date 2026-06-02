@@ -1,4 +1,4 @@
-package co.edu.sistema_practicas_empresariales.modules.practica.service;
+package co.edu.sistema_practicas_empresariales.modules.practica.service.impl;
 
 import co.edu.sistema_practicas_empresariales.modules.infraestructura.storage.ArchivoStorageService;
 import co.edu.sistema_practicas_empresariales.modules.practica.dto.AvanceDto;
@@ -7,6 +7,7 @@ import co.edu.sistema_practicas_empresariales.modules.practica.request.CrearAvan
 import co.edu.sistema_practicas_empresariales.modules.practica.enums.EstadoAvance;
 import co.edu.sistema_practicas_empresariales.modules.practica.model.*;
 import co.edu.sistema_practicas_empresariales.modules.practica.repository.*;
+import co.edu.sistema_practicas_empresariales.modules.practica.service.AvanceService;
 import co.edu.sistema_practicas_empresariales.modules.practica.state.EstadoPracticaTipo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -105,10 +106,10 @@ public class AvanceServiceImpl implements AvanceService {
         return toDto(avanceRepository.save(avance));
     }
 
-    private AvanceDto toDto(Avance a) {
+    public AvanceDto toDto(Avance a) {
         return AvanceDto.builder()
                 .id(a.getId())
-                .practicaId(a.getPractica().getId())
+                .practica_id(a.getPractica().getId())
                 .titulo(a.getTitulo())
                 .descripcion(a.getDescripcion())
                 .archivoUrl(a.getArchivoUrl())
@@ -116,7 +117,6 @@ public class AvanceServiceImpl implements AvanceService {
                 .comentarioDocente(a.getComentarioDocente())
                 .estado(a.getEstado())
                 .createdAt(a.getCreatedAt())
-                .updatedAt(a.getUpdatedAt())
                 .build();
     }
 }

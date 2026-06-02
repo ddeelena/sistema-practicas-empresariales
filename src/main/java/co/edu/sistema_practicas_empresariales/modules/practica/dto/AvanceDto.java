@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 public class AvanceDto {
     private Long          id;
+    private Long          practica_id;
     private Long          corteId;
     private Integer       corteNumero;
     private String        titulo;

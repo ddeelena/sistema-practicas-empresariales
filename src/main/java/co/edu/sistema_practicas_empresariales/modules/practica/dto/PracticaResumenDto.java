@@ -1,6 +1,7 @@
 package co.edu.sistema_practicas_empresariales.modules.practica.dto;
 
 import co.edu.sistema_practicas_empresariales.modules.practica.state.EstadoPractica;
+import co.edu.sistema_practicas_empresariales.modules.practica.state.EstadoPracticaTipo;
 import lombok.Data;
 import lombok.Builder;
 
@@ -22,7 +23,7 @@ public class PracticaResumenDto {
     private Long          empresaId;
     private String        nombreDocente;
     private Long          docenteId;
-    private EstadoPractica estado;
+    private EstadoPracticaTipo estado;
     private LocalDate fechaInicio;
     private LocalDate     fechaFin;
     private Boolean       tienePazYSalvo;

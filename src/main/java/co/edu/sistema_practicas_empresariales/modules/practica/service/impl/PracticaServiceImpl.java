@@ -6,6 +6,7 @@ import co.edu.sistema_practicas_empresariales.modules.practica.model.*;
 import co.edu.sistema_practicas_empresariales.modules.practica.repository.*;
 import co.edu.sistema_practicas_empresariales.modules.practica.request.FechaSustentacionRequest;
 import co.edu.sistema_practicas_empresariales.modules.practica.request.NotaFinalRequest;
+import co.edu.sistema_practicas_empresariales.modules.practica.service.PracticaService;
 import co.edu.sistema_practicas_empresariales.modules.practica.state.EstadoPracticaTipo;
 import co.edu.sistema_practicas_empresariales.modules.estudiante.model.CatalogoPractica;
 import co.edu.sistema_practicas_empresariales.modules.estudiante.model.Estudiante;
@@ -37,7 +38,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class PracticaServiceImpl {
+public class PracticaServiceImpl implements PracticaService {
 
     private final PracticaRepository         practicaRepository;
     private final AvanceRepository           avanceRepository;
@@ -443,7 +444,6 @@ public class PracticaServiceImpl {
                 .fechaSustentacion(p.getFechaSustentacion())
                 .notaFinal(p.getNotaFinal())
                 .resultado(p.getResultado())
-                .documentos(docs)
                 .checklist(checklist)
                 .tienePazYSalvo(tienePazYSalvo(p.getId()))
                 .build();
