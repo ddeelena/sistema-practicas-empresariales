@@ -16,9 +16,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import co.edu.sistema_practicas_empresariales.modules.practica.model.Practica;
 
 /**
  * Fachada (Facade) que orquesta múltiples servicios para cumplir casos de uso complejos de Postulacion.
@@ -177,7 +180,19 @@ public class PostulacionFacadeImpl implements PostulacionFacade {
     @Override
     @Transactional(readOnly = true)
     public List<PostulacionResponseDto> listarPorEstudiante(Long estudianteId) {
-        return postulacionRepository.findByEstudianteId(estudianteId).stream()
+        List<Postulacion> postulaciones = postulacionRepository.findByEstudianteId(estudianteId);
+        
+        boolean isSeleccionado = postulaciones.stream()
+                .anyMatch(p -> p.getEstado() == EstadoPostulacionTipo.SELECCIONADO);
+                
+        if (isSeleccionado) {
+            Optional<Practica> practicaOpt = practicaRepository.findPracticaActivaByEstudiante(estudianteId);
+            if (practicaOpt.isPresent() && practicaOpt.get().getEmpresaId() != null) {
+                return Collections.emptyList();
+            }
+        }
+        
+        return postulaciones.stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
