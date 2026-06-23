@@ -79,13 +79,15 @@ public class DataSeeder implements CommandLineRunner {
         // Crear roles extra
         Rol rolTutor = getOrCreateRol(Rol.Nombre.TUTOR_EMPRESARIAL);
         Rol rolEmpresa = getOrCreateRol(Rol.Nombre.EMPRESA_VINCULADA);
+        Rol rolSecretaria = getOrCreateRol(Rol.Nombre.SECRETARIA_COORDINACION);
 
         // Crear Coordinador Académico General (como antes)
         crearUsuarioConScope("coordinador_academico@universidad.edu.co", "CUE2026*", "Coordinador Académico General", rolAcad, ScopeTipo.GLOBAL, null);
 
-        // Crear Tutor Empresarial y Empresa
+        // Crear Tutor Empresarial, Empresa y Secretaria
         crearUsuarioConScope("tutor_empresarial@empresa.com", "CUE2026*", "Tutor Empresarial Prueba", rolTutor, ScopeTipo.EMPRESA, "1");
         crearUsuarioConScope("empresa@universidad.edu.co", "CUE2026*", "Empresa Prueba", rolEmpresa, ScopeTipo.EMPRESA, "1");
+        crearUsuarioConScope("secretaria@universidad.edu.co", "CUE2026*", "Secretaria Prácticas", rolSecretaria, ScopeTipo.GLOBAL, null);
 
         // Asignar Programas a Coordinadores Académicos en tabla intermedia
         asignarProgramaACoordinador(uInd, progInd);
